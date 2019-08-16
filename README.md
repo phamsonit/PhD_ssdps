@@ -3,43 +3,61 @@ SSDPS is an algorithm to mine statistically significant discrimininative pattern
 in two-class datasets. It allows to exhaustively discover patterns which satisfy
 both discriminative scores and confidence intervals or using heuristic strategies to
 mine the largest statistically significant discriminative patterns.
-Please refer to the full paper at https://arxiv.org/abs/1906.01581
+Please refer to the full paper at https://arxiv.org/abs/1906.01581 for more details.
 
 
 # Usage: #
-### - System require ###
-In order to compile and execute ssdps, the machine's
-CPU must support AVX2 (https://en.wikipedia.org/wiki/Advanced_Vector_Extensions).
-To check whether the CPU supports AVX2 or not please use the command on Linux OS: `cat /proc/cpuinfo`
 
-### - Compile ssdps ###
-Using the follow syntax:
+## Compile ssdps ##
+Using the follow command-line to compile the program:
+
 `g++ -std=c++11 -mavx2 src/*.cpp -o SSDPS`
 
-### - Run ssdps
+### Running SSDPS
+
+SSDPS is run using the following command-line format:
 
 `./SSDPS [options] INPUT `
 
-- `-or`: odds ratio threshold (default 0)
+The options, input file format and output are described below.
 
-- `-rr`: risk ratio threshold (default 0)
+#### Options:
 
-- `-ar`: absolute risk reduction threshold (default 0)
+`-or <n>`
 
-- `-p`: p-value threshold (default 0)
+Odds ratio threshold. Default is 0.
 
-- `-max`: maximal support in the 2nd class 2 (default 100%)
+`-gr <n>`
 
-- `-min`: minimal support in class 1 (default 0)	
+Grown rate support threshold. Default is 0.
 
-- `-heuristic`: using heuristic search to mine only largest patterns
+`-ds <n>`
 
-- `-iteration`: number of searching iterations x 1,000,000 (default 1,000,000)
+Difference support threshold. Default is 0.
 
-Example: ./SSDPS -or 2 -rr 2 -ar 0.1 -max 50 input.txt
+`-p-value <n>`
+
+p-value threshold. Default is 0.
+
+`-min <n>`
+
+Minimal support of the pattern in the first class. Default is 0.0%	
+
+`-max <n>`
+
+Maximal support of the pattern in the 2nd class. Default is 1.0%
+
+`-heuristic`
+
+Using heuristic search.
+
+`-iteration <n>`
+
+Number of searching iterations x 1,000,000. Default is 1x1,000,000. This option is only used with -heuristic option. 
 
 
-## Input data
+
+#### Input data
 The input data of SSDPS can be stored in a plain text file. The folowing example shows an input data including 16 transactions (8 transactions of 1st class, 8 transactions of 2nd class) and 10 items.
 
 \# 8   8
@@ -69,7 +87,8 @@ The format of this file as follows:
 - The following lines present the set of items. Each line corresponds to an item id. In a line, the value of 1 at the column i^th means that the corresponding item id occurs in the i^th transaction id.
 - Columns correspond to transaction ids. Transaction ids of the first class are presented first. For examle, the first 8 columns present the transaction ids of the 1st class, and the last 8 columns correspond to the transaction ids of the 2nd class.
 
-## Output format
+#### Output format
+
 Each line of the output file presents a discriminative pattern.
 For example:
 1,3,6,10,22 (15% : 4% : 4.92857 : 3.75 : 0.22 : 1.50337-16.1576)
@@ -80,12 +99,13 @@ This pattern can be interpreted as follow:
 - 4%: the support of the pattern in the 2nd class,
 - 4.92857: the value of odd ratio of supports,
 - 3.75: the value of grow rate supports,
-- 0.22: the different of support,
+- 0.22: the difference of supports,
 - 1.50337-16.1576: lower confidence interval - uper confidence interval.
 
 For questions, bug or reports, please mail to: hoang-s.pham@uclouvain.be
 
 ## Authors
+
 Pham Hoang Son: hoang.s.pham@uclouvain.be
 
 Alexandre Termier: Alexandre.Termier@irisa.fr
@@ -93,6 +113,7 @@ Alexandre Termier: Alexandre.Termier@irisa.fr
 Dominique Lavenier: Dominique.Lavenier@irisa.fr
 
 ## Copy right
+
 This program is free software; you can redistribute it and/or modify it under the terms of
 the GNU Lesser General Public License as published by the Free Software Foundation.
 

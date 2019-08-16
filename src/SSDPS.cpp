@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
 				  cout <<"parameter of "<< argv[i]<< " is invalid"<< endl;
 			  break;
 
-			case str2int("-rr"):
+			case str2int("-gr"):
 			  temp = strtof(argv[i+1],&argv[i+1]);
 			  if(temp!=0)
 				  rr_threshold = temp;
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 				  cout <<"parameter of "<< argv[i]<< " is invalid"<< endl;
 			  break;
 
-			case str2int("-ar"):
+			case str2int("-ds"):
 			  temp = strtof(argv[i+1],&argv[i+1]);
 			  if(temp!=0)
 				  arr_threshold = temp;
@@ -149,7 +149,7 @@ int main(int argc, char* argv[]) {
 			case str2int("-min"):
 			  temp = strtof(argv[i+1],&argv[i+1]);
 			  if(temp!=0)
-				  min_case = (temp/100)*nb_case;
+				  min_case = (temp/100)*nb_case*100;
 			  else
 				  cout <<"parameter of "<< argv[i]<< " is invalid"<< endl;
 			  break;
@@ -157,7 +157,7 @@ int main(int argc, char* argv[]) {
 			case str2int("-max"):
 			  temp = strtof(argv[i+1],&argv[i+1]);
 			  if(temp!=0)
-				  max_control = (temp/100)*nb_control;
+				  max_control = (temp/100)*nb_control*100;
 			  else
 				  cout <<"parameter of "<< argv[i]<< " is invalid"<< endl;
 			  break;
@@ -355,14 +355,14 @@ int main(int argc, char* argv[]) {
       cout<<"#Heuristic mining statistically significant discriminative patterns"<<endl;
       cout<<"#size of data: "<<nb_trans<<" x "<<transaction.nb_sample<<endl;
       cout<<"#size of reduced data: "<<transaction.size()<<" x "<<transaction.nb_sample<<endl;
-      cout<<"#risk thresholds (OR, RR, AR): "<<or_threshold<<", "<<rr_threshold<<", "<<arr_threshold<<endl;
+      cout<<"#risk thresholds (OR, GR, DS): "<<or_threshold<<", "<<rr_threshold<<", "<<arr_threshold<<endl;
       if(p_val!=0) cout<<"#p_value_threshold: "<<p_val<<endl;
       cout<<"#min case support: "<<(min_case/nb_case)*100<<"%"<<endl;
       cout<<"#max control support: "<<(max_control/nb_control)*100<<"%"<<endl;
       cout<<"#min case output: "<<(min_case_out/nb_case)*100<<"%"<<endl;
       cout<<"#stopping steps: "<<it_threshold<<endl;
       cout<<endl<<"Output:"<<endl;
-      cout<<"#patterns ( % classs1 : % class2 : OR : RR : AR : CI(lci-uci) )"<<endl;
+      cout<<"#patterns ( % class1 : % class2 : OR : GR : DS : CI(lci-uci) )"<<endl;
 	  //start from largest tid
       for(int e=nb_case-1; e>=min_case; e--){
 	  Tidset_vector p; //creat an empty transaction set (tidset)
@@ -379,13 +379,13 @@ int main(int argc, char* argv[]) {
       cout<<"#Exhaustive mining statistically significant discriminative patterns"<<endl;
       cout<<"#size of data: "<<nb_trans<<" x "<<transaction.nb_sample<<endl;
       cout<<"#size of reduced data: "<<transaction.size()<<" x "<<transaction.nb_sample<<endl;
-      cout<<"#risk thresholds (OR, RR, AR): "<<or_threshold<<", "<<rr_threshold<<", "<<arr_threshold<<endl;
+      cout<<"#risk thresholds (OR, GR, DS): "<<or_threshold<<", "<<rr_threshold<<", "<<arr_threshold<<endl;
       if(p_val!=0) cout<<"#p_value_threshold: "<<p_val<<endl;
       cout<<"#min case support: "<<(min_case/nb_case)*100<<"%"<<endl;
       cout<<"#max control support: "<<(max_control/nb_control)*100<<"%"<<endl;
       cout<<"#min case output: "<<(min_case_out/nb_case)*100<<"%"<<endl;
       cout<<endl<<"Output:"<<endl;
-      cout<<"#patterns ( % class1 : % class2 : OR : RR : AR : CI(lci-uci) )"<<endl;
+      cout<<"#patterns ( % class1 : % class2 : OR : GR : DS : CI(lci-uci) )"<<endl;
       //start from the smallest tid
       for(int e=min_case; e<transaction.nb_case; e++){
 	  Tidset_vector p; //creat an empty transaction set (tidset)
